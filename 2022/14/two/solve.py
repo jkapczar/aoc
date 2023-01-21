@@ -14,19 +14,11 @@ def appendMissingCords(cords):
 
 def addMissingPozitions(tmp, currentC, nextC):
   if currentC[0] == nextC[0]:
-    if nextC[1] > currentC[1]:
-      for i in range(currentC[1], nextC[1]):
-        tmp.append([currentC[0], i])
-    else:
-      for i in reversed(range(currentC[1], nextC[1], -1)):
-        tmp.append([currentC[0], i])
+    for i in range(min(currentC[1], nextC[1]), max(currentC[1], nextC[1])):
+      tmp.append([currentC[0], i])
   if currentC[1] == nextC[1]:
-     if nextC[0] > currentC[0]:
-      for i in range(currentC[0], nextC[0]):
-        tmp.append([i, currentC[1]])
-     else:
-      for i in reversed(range(currentC[0], nextC[0], -1)):
-        tmp.append([i, currentC[1]])
+    for i in range(min(currentC[0], nextC[0]), max(currentC[0], nextC[0])):
+      tmp.append([i, currentC[1]])
   tmp.append(currentC)
 
 def transform(r):
