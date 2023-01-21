@@ -21,13 +21,11 @@ def appendMissingCords(cords, d):
 
 def addMissing(currentC, nextC, d):
   if currentC[0] == nextC[0]:
-    for i in range(min(currentC[1], nextC[1]), max(currentC[1], nextC[1]) + 1):
+    for i in range(min(currentC[1], nextC[1]), max(currentC[1], nextC[1])):
       d = insertNewPozToDict([currentC[0], i], d)
-    return d
   if currentC[1] == nextC[1]:
-    for i in range(min(currentC[0], nextC[0]), max(currentC[0], nextC[0]) + 1):   
+    for i in range(min(currentC[0], nextC[0]), max(currentC[0], nextC[0])):   
       d = insertNewPozToDict([i, currentC[1]], d)
-    return d  
   return insertNewPozToDict(currentC, d)
 
 def calcNextPossiblePoz(p, d, m):
