@@ -1,40 +1,34 @@
-def processCords(line):
+def insertNewPozToDict(p, d):
+  if p[0] not in d:
+    d[p[0]] = [p[1]]
+  else:
+    tmp = d[p[0]] + [p[1]]
+    d[p[0]] = list(set(tmp))
+  return dict(sorted(d.items()))
+
+def processCords(line, d):
   cords = [x.strip() for x in line.split("->")]
   cords = [[int(cords.split(",")[0]), int(cords.split(",")[1])] for cords in cords]
-  return appendMissingCords(cords)
+  return appendMissingCords(cords, d)
 
-def appendMissingCords(cords):
-  tmp = []
+def appendMissingCords(cords, d):
   for i in range(len(cords)):
     if i+1 < len(cords):
-      addMissingPozitions(tmp, cords[i], cords[i+1])
+      d = addMissing(cords[i], cords[i+1], d)
     else:
-      tmp.append(cords[i])
-  return tmp
+      d = insertNewPozToDict(cords[i], d)
+  return d
 
-def addMissingPozitions(tmp, currentC, nextC):
+def addMissing(currentC, nextC, d):
   if currentC[0] == nextC[0]:
-    for i in range(min(currentC[1], nextC[1]), max(currentC[1], nextC[1])):
-      tmp.append([currentC[0], i])
+    for i in range(min(currentC[1], nextC[1]), max(currentC[1], nextC[1]) + 1):
+      d = insertNewPozToDict([currentC[0], i], d)
+    return d
   if currentC[1] == nextC[1]:
-    for i in range(min(currentC[0], nextC[0]), max(currentC[0], nextC[0])):   
-      tmp.append([i, currentC[1]])
-  tmp.append(currentC)
-
-def transform(r):
-  d = {}
-  m = 0
-  for i in r:
-    for j in i:
-      if j[0] in d:
-        tmp =  d[j[0]] + [j[1]]
-        d[j[0]] = sorted(set(tmp))
-      else:
-        d[j[0]] = [j[1]]
-      cmax = max(d[j[0]])
-      if cmax > m:
-        m = cmax
-  return m, dict(sorted(d.items()))
+    for i in range(min(currentC[0], nextC[0]), max(currentC[0], nextC[0]) + 1):   
+      d = insertNewPozToDict([i, currentC[1]], d)
+    return d  
+  return insertNewPozToDict(currentC, d)
 
 def calcNextPossiblePoz(p, d, m):
   while True:
@@ -53,14 +47,6 @@ def calcNextPossiblePoz(p, d, m):
         else:
           return p, False
 
-def insertNewPozToDict(p, d):
-  if p[0] not in d:
-    d[p[0]] = [p[1]]
-  else:
-    tmp = d[p[0]] + [p[1]]
-    d[p[0]] =  sorted(set(tmp))
-  return dict(sorted(d.items()))
-
 def fall(d, m):
   c = -1
   stop = False
@@ -74,14 +60,15 @@ def fall(d, m):
     print()
   print(c)
 
-r = []
+d = {}
 with open("input.txt", "r")  as f:
   for line in f.readlines():
-    r.append(processCords(line.strip()))
+    d = processCords(line.strip(), d)
 
-m, d = transform(r)
-print(d)
+m = 0
+for v in d.values():
+  cmax = max(v)
+  if cmax > m: m = cmax
+
+print(d, m)
 fall(d, m)
-
-
-
