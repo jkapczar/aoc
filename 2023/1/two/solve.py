@@ -2,6 +2,7 @@ s = 0
 nums = {"one": '1', "two": '2', "three": '3', "four":'4', "five":'5', "six":'6', "seven":'7', "eight":'8', "nine":'9', "zero":'0'}
 
 def find_num(text, rev):
+  print(f"text: {text}")
   for i in range(len(text)):
     
     if ord(text[i]) >= 48 and ord(text[i]) <= 57:
@@ -18,10 +19,10 @@ with open("input.txt", "r") as f:
     line = line.strip()
     
     l = find_num(line, False)
-    print(line[::-1])
-    
     r = find_num(line[::-1], True)
-    print(f"left: {l}, right: {r}")
     
+    print(f"left: {l}, right: {r}")
     s += int(l + r)
     print(s)
+
+assert 54076 == s
