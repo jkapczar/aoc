@@ -27,14 +27,15 @@ def mapping(s, e):
     des = int(m[0])
     sor = int(m[1])
     ran = int(m[2])
+    s = int(s)
     print(f"des: {des}, sor: {sor}, ran: {ran}")
-    try:
-      v = list(range(sor, sor + ran)).index(int(s))
-      r = list(range(des, des + ran))[v]
+    left = sor
+    right = sor + ran - 1
+    if s >= left and s <= right:
+      tmp = right - s
+      r = des + ran - tmp - 1
       print(f"found: {s}, mapped: {r}")
       return r
-    except ValueError:
-      print(f"not found: {s}")
   return s
 
 seeds = []
@@ -56,3 +57,4 @@ with open(sys.argv[1], "r") as f:
     print(f"r: {r}")
   print(f"res: {res}")
   print(f"res: {min(res)}")
+  assert 551761867 == min(res)
