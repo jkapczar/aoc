@@ -6,7 +6,6 @@ def parse_maps(lines):
   tmp = []
   for line in lines:
     if "map" in line:
-      print(line)
       parsing = True
       continue
     if len(line) == 0:
@@ -22,21 +21,21 @@ def parse_maps(lines):
       tmp.append(line.split(" "))
   return map_table[1:]
 
-def mapping(s, e):
-  for m in e:
-    des = int(m[0])
-    sor = int(m[1])
-    ran = int(m[2])
-    s = int(s)
-    print(f"des: {des}, sor: {sor}, ran: {ran}")
-    left = sor
-    right = sor + ran - 1
-    if s >= left and s <= right:
-      tmp = right - s
-      r = des + ran - tmp - 1
-      print(f"found: {s}, mapped: {r}")
-      return r
-  return s
+def mapping(seed, map_entry):
+  for entry in map_entry:
+    destination = int(entry[0])
+    source = int(entry[1])
+    m_range = int(entry[2])
+    seed = int(seed)
+    print(f"destination: {destination}, source: {source}, m_range: {m_range}")
+    left = source
+    right = source + m_range - 1
+    if seed >= left and seed <= right:
+      tmp = right - seed
+      result = destination + m_range - tmp - 1
+      print(f"found: {seed}, mapped: {result}")
+      return result
+  return seed
 
 seeds = []
 with open(sys.argv[1], "r") as f:
@@ -47,14 +46,14 @@ with open(sys.argv[1], "r") as f:
       print(seeds)
   map_table = parse_maps(lines)
   print(f"map_table: {map_table}")
-  res = []
-  for s in seeds:
-    r = s
-    for e in map_table:
-      print(f"seed: {r}, entry: {e}")
-      r = mapping(r, e)
-    res.append(r)
-    print(f"r: {r}")
-  print(f"res: {res}")
-  print(f"res: {min(res)}")
-  assert 551761867 == min(res)
+  results = []
+  for seed in seeds:
+    current_form_of_seed = seed
+    for map_entry in map_table:
+      print(f"current_form_of_seed: {current_form_of_seed}, map_entry: {map_entry}")
+      current_form_of_seed = mapping(current_form_of_seed, map_entry)
+    results.append(current_form_of_seed)
+    print(f"r: {current_form_of_seed}")
+  print(f"res: {results}")
+  print(f"res: {min(results)}")
+  assert 551761867 == min(results)
