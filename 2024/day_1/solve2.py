@@ -23,4 +23,4 @@ for i in range(0, len(l1)):
     cache[l1[i]] = part_res
 
 print(res)
-#assert res == 2066446 
+assert res == 24931009 
