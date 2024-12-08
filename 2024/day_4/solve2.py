@@ -29,3 +29,4 @@ with open("input.txt", "r") as f:
 print_arr()
 traverse_and_count()
 print(f"res: {res}")
+assert 1850 == res
