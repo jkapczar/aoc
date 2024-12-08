@@ -3,7 +3,6 @@ res = 0
 rules = []
 arr = []
 page_map = {}
-bad_rows = []
 
 def prepare_cache():
   global rules, page_map
@@ -38,7 +37,6 @@ def row_check():
     print(f"row: {row}")
     if add: res += int(row[len(row) // 2])
 
-
 with open("input.txt", "r") as f:
   p2 = False
   for line in f.readlines():
@@ -50,9 +48,8 @@ with open("input.txt", "r") as f:
     if p2 and len(line.strip()) != 0:
       arr.append(line.strip().split(","))
 
-
 prepare_cache()
 print(page_map)
 row_check()
-print(bad_rows)
 print(res)
+assert res == 4121

@@ -44,11 +44,8 @@ with open("input.txt", "r") as f:
     if p2 and len(line.strip()) != 0:
       arr.append(line.strip().split(","))
 
-#print(rules)
-#print()
-#print(arr)
-
 prepare_cache()
 print(page_map)
 row_check()
 print(res)
+assert res == 6951
