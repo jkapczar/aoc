@@ -29,6 +29,7 @@ def row_check():
       print(f"i: {i}, v: {v}")
       if not range_check(row[0:i+1], int(v)):
         good_row = False
+        break
     if good_row:
       print(f"added: {int(row[len(row) // 2])}")
       res += int(row[len(row) // 2])
